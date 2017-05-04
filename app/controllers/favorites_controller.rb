@@ -2,7 +2,10 @@ class FavoritesController < ApplicationController
   before_action :require_user_logged_in
   
   def index
+    @user = current_user
+    @microposts = current_user.feed_favorites.order('created_at DESC').page(params[:page])
   end
+
 
   def create
     micropost = Micropost.find(params[:micropost_id])
